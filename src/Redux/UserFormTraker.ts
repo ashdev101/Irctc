@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export type PassengersType = {
     passengerName: string,
-    pasengerAge: string,
+    pasengerAge: number | null,
     gender: string,
     nationality: string
     berthpreference: string

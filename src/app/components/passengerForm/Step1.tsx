@@ -40,14 +40,12 @@ function Step1({ form , setForm}: Props) {
                     <hr />
                 </>
             )
-
         }
         return (
             <>
                 {forms}
             </>
         )
-
 
     }, [numberOfSinglePASSENGERfORM])
     // console.log(singleTrain[0].trainClassandPrice[0].status)

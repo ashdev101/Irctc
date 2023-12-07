@@ -12,6 +12,7 @@ function MultiStepModal({ content, NextButton, BackButton }: Props) {
             {
                 content
             }
+
             <div className=' sticky z-[150] md:relative bottom-0 bg-white  w-full flex items-center md:gap-3  md:px-4 mt-4'>
                 {
                     BackButton ? BackButton : null

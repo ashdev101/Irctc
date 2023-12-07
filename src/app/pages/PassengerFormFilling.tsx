@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux'
 import { SetUserForm } from '../../Redux/UserFormTraker'
 import toast from 'react-hot-toast'
 import Captcha from '../components/Captcha'
-import { IoIosRefresh } from 'react-icons/io'
 import CaptchaInput from '../components/passengerForm/CaptchaInput'
 
 type Props = {}
