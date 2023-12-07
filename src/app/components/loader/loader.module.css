@@ -1,0 +1,40 @@
+
+.circle {
+    transform-origin: center;
+    transform-box: fill-box;
+    transform-origin: center;
+    -webkit-animation: rotate linear infinite;
+    animation: rotate linear infinite;
+}
+
+.first {
+    -webkit-animation-duration: 1.6s;
+    animation-duration: 1.6s;
+}
+
+.secound {
+    -webkit-animation-duration: 1.2s;
+    animation-duration: 1.2s;
+}
+
+.third {
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
+}
+
+@-webkit-keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.svg{
+    width: 100px;
+    height: 100px;
+}
