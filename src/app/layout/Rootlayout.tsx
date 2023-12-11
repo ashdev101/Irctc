@@ -13,7 +13,7 @@ type Props = {}
 function Rootlayout({ }: Props) {
     return (
         <>
-
+            
             <PersonWdisModal/>
             <RailPassConcessionModal/>
             <LoginModal/>

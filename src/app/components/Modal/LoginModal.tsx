@@ -61,6 +61,9 @@ function LoginModal({ }: Props) {
                             <input type="text" placeholder='User Name' className=' w-full p-3 borderd ' onChange={ e=>setLoginForm({...LoginForm , username : e.target.value})}/>
                             <input type="password" placeholder='Password' className=' w-full p-3 border' onChange={ e=>setLoginForm({...LoginForm , password : e.target.value})}/>
                         </section>
+                        <section className=' text-rose-300 text-sm'>
+                            Cant See Captcha Try Refrehing It
+                        </section>
                         <section className=' w-[60%] flex flex-row items-center justify-between border p-2'>
                             {element}
                             <div className=' p-3  cursor-pointer flex items-center justify-center rounded-full hover:bg-slate-300' onClick={() => setChangeCaptch(prev => !prev)}>

@@ -10,6 +10,11 @@ type Props = {
     currentPessengerInfo: mutistepFrom[]
     setForm: React.Dispatch<React.SetStateAction<mutistepFrom[]>>
     onClose: () => void
+    PreviousSelectedGender?: string
+    PreviousSelectedName?: string
+    PreviousSelectedAge?: number
+    PreviousselectedNation?: string
+    PreviousberthPrefrence?: string
 }
 type SingleFormFilling = {
     passengerName: string
@@ -19,10 +24,10 @@ type SingleFormFilling = {
     berthpreference: string
 }
 
-function PassengerSingleInput({ currentPessengerInfo, setForm, onClose }: Props) {
-    const { SelectorElement: GenderSlector, selectedOption: SelectedGender } = Selector({ options: GenderOptions })
-    const { SelectorElement: NationalitySlector, selectedOption: SelectedNation } = Selector({ options: NationalityOptions })
-    const { SelectorElement: BerthPrefrenceSlector, selectedOption: SelectedPrefrence } = Selector({ options: BerthPrefrencerOptions })
+function PassengerSingleInput({ PreviousSelectedName, PreviousSelectedAge, PreviousSelectedGender, currentPessengerInfo, setForm, onClose, PreviousselectedNation, PreviousberthPrefrence }: Props) {
+    const { SelectorElement: GenderSlector, selectedOption: SelectedGender } = Selector({ options: GenderOptions, defaultValue: PreviousSelectedGender })
+    const { SelectorElement: NationalitySlector, selectedOption: SelectedNation } = Selector({ options: NationalityOptions, defaultValue: PreviousselectedNation })
+    const { SelectorElement: BerthPrefrenceSlector, selectedOption: SelectedPrefrence } = Selector({ options: BerthPrefrencerOptions, defaultValue: PreviousberthPrefrence })
 
     const [passengerName, SetPessengerName] = useState("")
     const [passengerAge, SetPessengerAge] = useState<number | null>(null)
@@ -43,16 +48,21 @@ function PassengerSingleInput({ currentPessengerInfo, setForm, onClose }: Props)
         <section className=' relative  flex flex-col md:flex-row items-center justify-between '>
             <div className=' md:hidden h-8 relative w-full '>
                 <section className=' absolute right-0' onClick={onClose}>
-                    <IoMdClose size={20}  />
+                    <IoMdClose size={20} />
                 </section>
             </div>
-            <input 
-            onChange={(e)=>SetPessengerName(e.target.value)}
-            type="text" maxLength={16} placeholder='Passenger Name' className=' w-full md:w-[20%] py-2 px-1 outline outline-1 focus:outline-none focus:ring focus:border-neutral-500 ' />
+            <input
+                value={PreviousSelectedName ? PreviousSelectedName : passengerName}
+                onChange={(e) => SetPessengerName(e.target.value)}
+                type="text" maxLength={16} placeholder='Passenger Name' className=' w-full md:w-[20%] py-2 px-1 outline outline-1 focus:outline-none focus:ring focus:border-neutral-500 ' />
             <div className=' w-full md:w-[40%] flex flex-row items-center justify-evenly gap-2'>
-                <input 
-                onChange={e=>SetPessengerAge(Number(e.target.value))}
-                type="number" placeholder='Age' className='w-[49%] md:w-[55px] py-2 px-1 outline outline-1 focus:outline-none focus:ring focus:border-neutral-500 ' />
+                <input
+                    //@ts-ignore
+                    value={PreviousSelectedAge ? PreviousSelectedAge : passengerAge}
+                    min={5}
+                    max={100}
+                    onChange={e => SetPessengerAge(Number(e.target.value))}
+                    type="number" placeholder='Age' className='w-[49%] md:w-[55px] py-2 px-1 outline outline-1 focus:outline-none focus:ring focus:border-neutral-500 ' />
                 <div className=' w-[49%] relative'>
                     {GenderSlector}
                     {SelectedGender ? null : <span className=' min-w-max absolute top-14 left-0'>Select Gender</span>}

@@ -40,11 +40,11 @@ function FareSummary({ currentStep, form }: Props) {
                     <span className=' px-3 text-2xl font-bold '>Fare Summary</span>
                     <div className=' px-3 w-full flex items-center justify-between'>
                         <span className=' text-md  '>Ticket Fare</span>
-                        <span>{Number(state.baseFare) * state.passenger.length}</span>
+                        <span>{Number(state.baseFare) * state.passengers.length}</span>
                     </div>
                     <div className='w-full px-3 flex items-center justify-between py-2 text-white bg-[rgb(33,61,119)]'>
                         <span className=' text-md '>Total Fare</span>
-                        <span>{Number(state.baseFare) * state.passenger.length}</span>
+                        <span>{Number(state.baseFare) * state.passengers.length}</span>
                     </div>
                 </>
         }
@@ -73,7 +73,7 @@ function FareSummary({ currentStep, form }: Props) {
                         </section>
                         {/* this will come from userfilled form  */}
                         <section className=" text-sm font-bold w-full text-center mt-2">
-                            {state.passenger.length} | {state.BerthClass} | General | Boarding at {state.BoardingStation} | Boarding Date: {state.BordingDate} {state.BordingTime}
+                            {state.passengers.length} | {state.BerthClass} | General | Boarding at {state.BoardingStation} | Boarding Date: {state.BordingDate} {state.BordingTime}
                         </section>
 
                     </div>

@@ -5,18 +5,15 @@ import TrainListTrains from './TrainListTrains';
 import TrainListFilter from './TrainListFilter';
 import TrainListFilterPhone from './TrainListFilterPhone'
 import { FetchTrainListMutation } from '../../../ReactQuriesAndMutations/Mutations';
-import { Navigate, redirect, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 type Props = {}
 
-// inside.cnfProbability &&
-// inside.cnfProbability?.length > 0 &&
-// inside.status?.length > 0
 function TrainList({ }: Props) {
     const location = useLocation()
     const navigate = useNavigate()
     const { data } = FetchTrainListMutation()
-    console.log(location.state?.from !== "/home")
+    // console.log(location.state?.from !== "/home")
     if (location.state?.from !== "/home") {
         console.log("inhre");
         //dont know but navigate("/" ) is not able to navigate to "/" 

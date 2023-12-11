@@ -18,7 +18,7 @@ function Step2({ form }: Props) {
                     <>
                         <section className='w-full flex flex-col gap-2'>
                             {
-                                state.passenger.map((item, index) => (
+                                state.passengers.map((item, index) => (
                                     <div className=' flex flex-row items-center  gap-2'>
                                         <span className=' text-md font-bold'>{index + 1}</span>
                                         <span className=' text-md font-bold'>{item.passengerName}</span>

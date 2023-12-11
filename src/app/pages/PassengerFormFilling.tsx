@@ -7,11 +7,17 @@ import MultiStepModal from '../components/passengerForm/MultiStepModal'
 import Step2 from '../components/passengerForm/Step2'
 import Step3 from '../components/passengerForm/Step3'
 import FareSummary from '../components/passengerForm/FareSummary'
-import { useDispatch } from 'react-redux'
-import { SetUserForm } from '../../Redux/UserFormTraker'
+import { useDispatch, useSelector } from 'react-redux'
+import { SetUserForm, UserFormTracker } from '../../Redux/UserFormTraker'
 import toast from 'react-hot-toast'
 import Captcha from '../components/Captcha'
 import CaptchaInput from '../components/passengerForm/CaptchaInput'
+import Stripe from 'stripe'
+import { makePaymentMutation } from '../../ReactQuriesAndMutations/Mutations'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { RootState } from '../../Redux/Store'
+import { v4 as uuidv4 } from 'uuid';
 
 type Props = {}
 
@@ -24,10 +30,11 @@ export type mutistepFrom = {
 }
 
 function PassengerFormFilling({ }: Props) {
+    const userForm = useSelector((state: RootState) => state.UserFormTracker)
     const [step, setStep] = useState(1)
     const { element, captch, setChangeCaptch } = Captcha()
     const [captchaInput, setcaptchaInput] = useState("")
-    const [form, setForm] = useState<Array<mutistepFrom>>([])
+    const [form, setForm] = useState<Array<mutistepFrom>>(userForm.passengers|| [])
     console.log(form)
     const handleStepChange = useCallback((action: "next" | "prev") => {
         if (action === "next") {
@@ -38,6 +45,8 @@ function PassengerFormFilling({ }: Props) {
     }, [step])
 
     const dispatch = useDispatch()
+    const { mutation } = makePaymentMutation()
+
 
     const content = () => {
         let content: React.ReactNode
@@ -46,33 +55,41 @@ function PassengerFormFilling({ }: Props) {
 
         if (step === 1) {
 
-            const isEmptyInput = form.filter(item => {
-                for (const [key, value] of Object.entries(item)) {
-                    if (!value || value?.toString().length < 1) {
-                        return item
-                    }
+            const isEmptyInput = () => {
+                if (userForm.passengers.length) {
+                    return false;
+                } else {
+                    const hasEmptyValues = form.some(item => {
+                        for (const [key, value] of Object.entries(item)) {
+                            if (!value || value?.toString().length < 1) {
+                                return true
+                            }
+                        }
+                        return false
+                    });
+                    return hasEmptyValues
                 }
-            })
+            }
 
             const handlenNextClick = () => {
-                setChangeCaptch(prev => !prev)
-                setcaptchaInput("")
-                if (isNextButtonDisabled) {
-                    toast.error("pls fill the required feilds ")
-                    return
-                }
-                if (captch !== captchaInput) {
-                    toast.error("invalid captcha")
+                // setChangeCaptch(prev => !prev)
+                // setcaptchaInput("")
+                // if (isNextButtonDisabled) {
+                //     toast.error("pls fill the required feilds ")
+                //     return
+                // }
+                // if (captch !== captchaInput) {
+                //     toast.error("invalid captcha")
 
-                    return
-                }
+                //     return
+                // }
                 //@ts-ignore cause we have checked for the condition 
                 dispatch(SetUserForm({ passenger: form }))
                 handleStepChange("next");
 
             }
-            console.log(isEmptyInput.length)
-            const isNextButtonDisabled = isEmptyInput.length > 0 || captchaInput.length < 5
+            console.log(isEmptyInput())
+            const isNextButtonDisabled = isEmptyInput() || captchaInput.length < 5
             content =
                 <>
                     <Step1
@@ -103,13 +120,14 @@ function PassengerFormFilling({ }: Props) {
         }
         else if (step === 2) {
             const handleNext = () => {
-                setcaptchaInput("")
-                setChangeCaptch(prev => !prev)
-                if (captchaInput !== captch) {
-                    toast.error("invalid captcha")
+                // setcaptchaInput("")
+                // setChangeCaptch(prev => !prev)
+                // if (captchaInput !== captch) {
+                //     toast.error("invalid captcha")
 
-                    return
-                }
+                //     return
+                // }
+                dispatch(SetUserForm({ SubTotal: (Number(userForm.baseFare) * userForm.passengers.length).toString() }))
                 handleStepChange("next")
             }
             content =
@@ -139,6 +157,14 @@ function PassengerFormFilling({ }: Props) {
                 </button>
         }
         else if (step === 3) {
+
+            const handlePayment = async () => {
+                console.log(Number(userForm.SubTotal))
+                console.log(uuidv4())
+                mutation.mutate({
+                    orderId: uuidv4(),
+                })
+            }
             //captch validation pending 
             const isNextButtonDisabled = false
             content =
@@ -151,16 +177,16 @@ function PassengerFormFilling({ }: Props) {
                         />
                     </section>
                 </>
-            NextButton =
+            BackButton =
                 <button
                     onClick={e => handleStepChange("prev")}
                     className='  w-[50%] py-4 md:w-max flex flex-row items-center justify-center md:px-3 md:py-2 font-bold  border hover:border-yellow-400 outline-none text-[15px]  ' >
                     Back
                 </button>
-            BackButton =
+            NextButton =
                 <button
                     disabled={isNextButtonDisabled}
-                    onClick={e => handleStepChange("next")}
+                    onClick={handlePayment}
                     className=' w-[50%] py-4 md:w-full md:max-w-max px-6 md:py-2 md:rounded-md font-semibold bg-[rgb(251,121,43)] border-none outline-none text-[15px] text-white'>
                     Make payment
                 </button>

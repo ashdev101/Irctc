@@ -1,17 +1,20 @@
-import {useMemo , useState , useCallback} from 'react'
+import { useMemo, useState, useCallback, memo } from 'react'
 import TrainInfoCard from './TrainInfo'
 import { singleTrain } from '../../../data/SmpleScrappedData'
 import PassengerFormFeildsCard from './PassengerFormFeildsCard'
 import PassengerSingleInput from './PassengerSingleInput'
 import toast from 'react-hot-toast'
 import { mutistepFrom } from '../../pages/PassengerFormFilling'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../Redux/Store'
 
 type Props = {
-    form : mutistepFrom[]
-    setForm : React.Dispatch<React.SetStateAction<mutistepFrom[]>>
+    form: mutistepFrom[]
+    setForm: React.Dispatch<React.SetStateAction<mutistepFrom[]>>
 }
 
-function Step1({ form , setForm}: Props) {
+function Step1({ form, setForm }: Props) {
+    const userFormInput = useSelector((state: RootState) => state.UserFormTracker)
     const [numberOfSinglePASSENGERfORM, setnumberOfSinglePASSENGERfORM] = useState(1)
     // const [form, setForm] = useState<Array<mutistepFrom>>([])
 
@@ -48,11 +51,11 @@ function Step1({ form , setForm}: Props) {
         )
 
     }, [numberOfSinglePASSENGERfORM])
-    // console.log(singleTrain[0].trainClassandPrice[0].status)
+
     return (
         <>
             <section className=' md:w-full xl:w-[1000px] flex flex-col gap-3'>
-        
+
                 <PassengerFormFeildsCard
                     Extraheader={<section className=' w-full bg-[rgb(254,241,233)] text-[rgb(197,123,0)] text-sm font-bold'>
 

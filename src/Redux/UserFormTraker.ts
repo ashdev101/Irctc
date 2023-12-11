@@ -9,11 +9,11 @@ export type PassengersType = {
 }
 
 export type UserFormTypes = {
-    id: string;
+    orderId: string
+    payment: "succesfull" | "unsuccesfull" | "notInitiated"
     userId: string;
     trainName: string;
     trainNumber: string;
-    bookingDatetime: string;
     BoardingStation: string;
     BordingDate: string;
     BordingTime: string;
@@ -25,13 +25,13 @@ export type UserFormTypes = {
     baseFare: string;
     SubTotal: string;
     currentStatus: string
-    passenger: Array<PassengersType>
+    passengers: Array<PassengersType>
 }
 
 const initialState: UserFormTypes = {
-    id: '',
+    orderId: "",
+    payment: "notInitiated",
     userId: '',
-    bookingDatetime: '',
     BoardingStation: '',
     BordingDate: '',
     BordingTime: '',
@@ -45,7 +45,7 @@ const initialState: UserFormTypes = {
     baseFare: "",
     currentStatus: "",
     BerthClass: '',
-    passenger: []
+    passengers: []
 }
 
 export const UserFormTracker = createSlice({
@@ -55,7 +55,7 @@ export const UserFormTracker = createSlice({
         SetUserForm: (state, action: PayloadAction<Partial<UserFormTypes>>) => {
             for (const [key, value] of Object.entries(action.payload)) {
                 if (key === 'passenger' && Array.isArray(value)) {
-                    state.passenger = value
+                    state.passengers = value
                 } else {
                     //@ts-ignore
                     state[key as keyof UserFormTypes] = value
