@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, memo } from 'react'
+import { useMemo, useState, useCallback, memo, SetStateAction } from 'react'
 import TrainInfoCard from './TrainInfo'
 import { singleTrain } from '../../../data/SmpleScrappedData'
 import PassengerFormFeildsCard from './PassengerFormFeildsCard'
@@ -17,40 +17,102 @@ function Step1({ form, setForm }: Props) {
     const userFormInput = useSelector((state: RootState) => state.UserFormTracker)
     const [numberOfSinglePASSENGERfORM, setnumberOfSinglePASSENGERfORM] = useState(1)
     // const [form, setForm] = useState<Array<mutistepFrom>>([])
+    console.log(form.length)
 
-    const handleClickAction = useCallback((action: "inc" | "dec") => {
+    const handleClickAction = (action: "inc" | "dec", index?: number) => {
         if (action === "inc") {
-            if (numberOfSinglePASSENGERfORM === 6) { toast.error("maxium 6 passengers are allowed"); return }
-            setnumberOfSinglePASSENGERfORM(prev => prev + 1)
+            console.log("called")
+            if (form.length === 6) { toast.error("maxium 6 passengers are allowed"); return }
+            setForm([...form, { passengerName: '', pasengerAge: null, gender: undefined, nationality: 'Bharat', berthpreference: 'No Prefrence' }])
 
-        } else if (action === "dec" && numberOfSinglePASSENGERfORM > 1) {
-            setnumberOfSinglePASSENGERfORM(prev => prev - 1)
+        } else if (action === "dec" && form.length > 1 && index) {
+            console.log(index)
+            console.log("called")
+            setForm(prev => {
+                const newArray = [...prev]
+                newArray.splice(index, 1)
+                return newArray
+            });
         }
 
-    }, [numberOfSinglePASSENGERfORM])
+    }
 
     const PaseengerMultipleForm = useMemo(() => {
-        const forms = []
-        for (let index = 0; index < numberOfSinglePASSENGERfORM; index++) {
-            forms.push(
-                <>
-                    <PassengerSingleInput
-                        key={index}
-                        onClose={() => handleClickAction("dec")}
-                        currentPessengerInfo={form}
-                        setForm={setForm}
-                    />
-                    <hr />
-                </>
-            )
-        }
+        console.log(form.length)
+        console.log(form.length)
+        const forms = form.map((item, index) =>
+        (
+            <>
+                <PassengerSingleInput
+
+                    onNameChange={(args: string) => {
+                        setForm(prevForm => {
+                            const updatedForm = [...prevForm]
+                            const previousValue = updatedForm[index].passengerName
+                            updatedForm[index] = {
+                                ...updatedForm[index],
+                                passengerName: args 
+                            };
+                            return updatedForm
+                        }
+                        )
+                    }}
+                    onAgeChange={(args: number | null) => {
+                        setForm(prevForm => {
+                            const updatedForm = [...prevForm]
+                            updatedForm[index] = {
+                                ...updatedForm[index],
+                                pasengerAge: args 
+                            };
+                            return updatedForm
+                        })
+                    }}
+                    onGenderChange={(args: string) => {
+                        setForm(prevForm => {
+                            const updatedForm = [...prevForm]
+                            updatedForm[index] = {
+                                ...updatedForm[index],
+                                gender: args 
+                            };
+                            return updatedForm
+                        })
+                    }}
+                    onNationalityChange={(args: string) => {
+                        setForm(prevForm => {
+                            const updatedForm = [...prevForm]
+                            updatedForm[index] = {
+                                ...updatedForm[index],
+                                nationality: args
+                            };
+                            return updatedForm
+                        })
+                    }}
+                    onPrefrenceChange={(args: string) => {
+                        setForm(prevForm => {
+                            const updatedForm = [...prevForm]
+                            updatedForm[index] = {
+                                ...updatedForm[index],
+                                berthpreference: args 
+                            };
+                            return updatedForm
+                        })
+                    }}
+                    onClose={() => handleClickAction("dec", index)}
+                    currentPessengerInfo={form}
+                    index={index}
+                />
+                <hr />
+            </>
+        )
+        )
+        console.log(forms)
         return (
             <>
                 {forms}
             </>
         )
 
-    }, [numberOfSinglePASSENGERfORM])
+    }, [form.length])
 
     return (
         <>

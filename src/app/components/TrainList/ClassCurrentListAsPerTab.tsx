@@ -7,6 +7,14 @@ import { SetUserForm } from '../../../Redux/UserFormTraker'
 import addHours from 'date-fns/addHours'
 
 type Props = {
+    tabData: {
+        trainNumber: string
+        trainStatus: {
+            trainTiming: string;
+            currentStatus: string;
+            confirmProbability: string;
+        }[]
+    }[]
     duration: number
     activeTab: string
     SetterFunction: React.Dispatch<React.SetStateAction<string>>
@@ -21,7 +29,7 @@ type Props = {
 }
 
 function ClassCurrentListAsPerTab({
-
+    tabData,
     activeTab,
     SetterFunction,
     duration,
@@ -36,14 +44,8 @@ function ClassCurrentListAsPerTab({
 
 }: Props) {
     const dispatch = useDispatch()
-    const data = useSelector((state: RootState) => state.currrentClass.data)
-    const clasData = data
-    // console.log(clasData)
-
-    //if so it happens by any chance although we are only showing the component when the data is avalible 
-    if (!clasData) {
-        return null
-    }
+    console.log(tabData)
+    const currentValueSelected = useSelector((state: RootState) => state.UserFormTracker)
 
     const addDurationAndTime = (date: string, time: string) => {
         const formatedDatetime = new Date(new Date(`${date} ${time}`).setFullYear(new Date().getFullYear()))
@@ -67,17 +69,18 @@ function ClassCurrentListAsPerTab({
     return (
         <>
             {
-                activeTab.length
+                activeTab.length && tabData.length
                     ?
                     <div className=' w-full flex flex-row items-center justify-center gap-4 mt-2 min-w-max'>
                         {
-                            clasData[0].trainStatus.map((item, index) => {
+                            tabData[0].trainStatus.map((item, index) => {
                                 if (item.trainTiming && item.confirmProbability && item.currentStatus) {
                                     return (
                                         <div
+
                                             key={index}
                                             onClick={e => handleClickOnParticluarClass(item.trainTiming, item.currentStatus)}
-                                            className=' min-w-max flex flex-col gap-1 py-1 px-1 pr-8 border rounded-lg hover:border-black cursor-pointer'>
+                                            className={`${currentValueSelected.trainNumber === trainNumber && currentValueSelected.currentStatus === item.currentStatus ? "bg-[rgb(254,228,212)] border-black" : ""} min-w-max flex flex-col gap-1 py-1 px-1 pr-8 border rounded-lg hover:border-black cursor-pointer`}>
                                             <span className=' text-sm font-bold'>{item.trainTiming}</span>
                                             <span className=' text-sm font-bold text-rose-400'>{item.currentStatus}</span>
                                             <span className=' text-sm font-bold'>{item.confirmProbability}</span>

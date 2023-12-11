@@ -30,12 +30,20 @@ export type mutistepFrom = {
 }
 
 function PassengerFormFilling({ }: Props) {
+    
     const userForm = useSelector((state: RootState) => state.UserFormTracker)
     const [step, setStep] = useState(1)
     const { element, captch, setChangeCaptch } = Captcha()
     const [captchaInput, setcaptchaInput] = useState("")
-    const [form, setForm] = useState<Array<mutistepFrom>>(userForm.passengers|| [])
+    const [form, setForm] = useState<Array<mutistepFrom>>([{
+        passengerName: '',
+        pasengerAge: null,
+        gender: undefined,
+        nationality: 'Bharat',
+        berthpreference: 'No Prefrence'
+    }])
     console.log(form)
+    console.log(form.length)
     const handleStepChange = useCallback((action: "next" | "prev") => {
         if (action === "next") {
             setStep(prev => prev + 1)

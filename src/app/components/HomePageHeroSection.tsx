@@ -16,7 +16,7 @@ function HomePageHeroSection({}: Props) {
         <span className=' text-xl  p-2'> Punctuality</span>
       </div>
     </section>
-    <section className=' md:absolute flex flex-col justify-center items-center gap-2 top-8 left-16 w-100% md:w-[550px]'>
+    <section className=' mt-4 md:mt-0 md:absolute flex flex-col justify-center items-center gap-2 top-8 left-16 w-100% md:w-[550px]'>
       <Form />
       <MessageForUsers/>
     </section>

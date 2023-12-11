@@ -1,9 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { TrainClassDetails } from '../app/DTYPES/types'
-
+import { TrainClassDetailsToAddInStore } from '../app/DTYPES/types'
 
 type dataProp = {
-    data: TrainClassDetails
+    data: TrainClassDetailsToAddInStore
 }
 const initialState: dataProp = {
     data: []
@@ -13,9 +12,10 @@ export const CurrentClass = createSlice({
     name: 'currrentClass',
     initialState,
     reducers: {
-        SetCurrentClass: (state, action: PayloadAction<TrainClassDetails>) => {
+        SetCurrentClass: (state, action: PayloadAction<TrainClassDetailsToAddInStore>) => {
             console.log(action.payload)
             state.data = action.payload
+            console.log(state)
         },
 
     }

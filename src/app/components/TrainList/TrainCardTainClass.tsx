@@ -19,7 +19,7 @@ type Props = {
 
 function TrainCardTainClass({   Price , classDesc, activeTab, SetterFunction, SourceStationCode, DestinationStationCode, date, trainNumber }: Props) {
  
-    const { mutation } = GetClassMutation()
+    const { mutation } = GetClassMutation(trainNumber)
     const dispatch = useDispatch()
 
     const handleClick = () => {

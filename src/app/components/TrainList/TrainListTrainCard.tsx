@@ -1,14 +1,11 @@
 import { GoDash } from "react-icons/go";
-import { IoMdRefresh } from "react-icons/io";
 import TrainCardTainClass from './TrainCardTainClass';
-import { useMemo, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import ClassCurrentListAsPerTab from "./ClassCurrentListAsPerTab";
 import { IoMdClose } from "react-icons/io";
-import { format } from "date-fns/fp";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Store";
-import { GetClassMutation } from "../../../ReactQuriesAndMutations/Mutations";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export type trainClassandPriceProp = {
     class: string
@@ -77,8 +74,13 @@ function TrainListTrainCard({
 
     const { from, to, date } = useSelector((state: RootState) => state.UserOptions)
     // console.log(activeTab.length)
-    const data = useSelector((state: RootState) => state.currrentClass)
-    // console.log(data.data.length)
+    const userFormData = useSelector((state: RootState) => state.UserFormTracker)
+    console.log(trainNumber)
+    const data = useSelector((state: RootState) => state.currrentClass.data)
+    const isButtonDisabled = userFormData.trainNumber !== trainNumber
+    console.log(data)
+    const filteredData = data?.filter((item) => (item.trainNumber).toString().trim() === trainNumber.toString().trim())
+    console.log(filteredData)
     return (
         <div className=' w-full flex flex-col justify-between gap-3 p-2 border'>
             <section className=' w-full flex flex-col md:flex-row items-center justify-between '>
@@ -137,8 +139,9 @@ function TrainListTrainCard({
                     }
                 </div>
                 {/* //only want to show if we have data  */}
-                {activeTab.length && data.data.length
+                {activeTab.length && filteredData.length
                     ? <ClassCurrentListAsPerTab
+                        tabData={filteredData}
                         duration={duration}
                         trainName={trainName}
                         trainNumber={trainNumber}
@@ -157,9 +160,10 @@ function TrainListTrainCard({
 
             </section>
             <section className=' flex flex-row gap-2'>
-                <button 
-                onClick={()=>navigate("/psgninput" , {state:{from:"/train-list"}})}
-                className=' w-full sm:max-w-max px-6 py-2 rounded-md font-semibold bg-[rgb(251,121,43)] border-none outline-none text-[15px] text-white'>
+                <button
+                    disabled={isButtonDisabled}
+                    onClick={() => navigate("/psgninput", { state: { from: "/train-list" } })}
+                    className={`w-full sm:max-w-max px-6 py-2 rounded-md font-semibold ${isButtonDisabled ? "bg-[rgb(253,201,170)]" : "bg-[rgb(251,121,43)]"} border-none outline-none text-[15px] text-white`}>
                     Book Now
                 </button>
                 <button className=' w-full sm:max-w-max px-6 py-2  font-semibold hover:border-[rgb(251,121,43)] border outline-none text-[15px]'>

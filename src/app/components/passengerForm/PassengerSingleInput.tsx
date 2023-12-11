@@ -8,13 +8,18 @@ import { IoMdClose } from "react-icons/io";
 //i mean why cant we could have taken index also as a param and onclose remove only that one but here its working as expeceted
 type Props = {
     currentPessengerInfo: mutistepFrom[]
-    setForm: React.Dispatch<React.SetStateAction<mutistepFrom[]>>
     onClose: () => void
     PreviousSelectedGender?: string
     PreviousSelectedName?: string
     PreviousSelectedAge?: number
     PreviousselectedNation?: string
     PreviousberthPrefrence?: string
+    onNameChange?: (arg0: string) => void
+    onAgeChange?: (arg0: number) => void
+    onGenderChange?: (arg0: string) => void
+    onNationalityChange?: (arg0: string) => void
+    onPrefrenceChange?: (arg0: string) => void
+    index: number
 }
 type SingleFormFilling = {
     passengerName: string
@@ -24,25 +29,26 @@ type SingleFormFilling = {
     berthpreference: string
 }
 
-function PassengerSingleInput({ PreviousSelectedName, PreviousSelectedAge, PreviousSelectedGender, currentPessengerInfo, setForm, onClose, PreviousselectedNation, PreviousberthPrefrence }: Props) {
-    const { SelectorElement: GenderSlector, selectedOption: SelectedGender } = Selector({ options: GenderOptions, defaultValue: PreviousSelectedGender })
-    const { SelectorElement: NationalitySlector, selectedOption: SelectedNation } = Selector({ options: NationalityOptions, defaultValue: PreviousselectedNation })
-    const { SelectorElement: BerthPrefrenceSlector, selectedOption: SelectedPrefrence } = Selector({ options: BerthPrefrencerOptions, defaultValue: PreviousberthPrefrence })
+function PassengerSingleInput({ index, PreviousSelectedName, PreviousSelectedAge, PreviousSelectedGender, currentPessengerInfo, onClose, PreviousselectedNation, PreviousberthPrefrence, onAgeChange, onGenderChange, onNameChange, onNationalityChange, onPrefrenceChange }: Props) {
+    console.log(currentPessengerInfo[index].gender)
+    const { SelectorElement: GenderSlector, selectedOption: SelectedGender } = Selector({ options: GenderOptions, defaultValue: [currentPessengerInfo[index].gender], oNcHANGE: onGenderChange })
+    const { SelectorElement: NationalitySlector, selectedOption: SelectedNation } = Selector({ options: NationalityOptions, defaultValue: currentPessengerInfo[index].nationality, oNcHANGE: onNationalityChange })
+    const { SelectorElement: BerthPrefrenceSlector, selectedOption: SelectedPrefrence } = Selector({ options: BerthPrefrencerOptions, defaultValue: currentPessengerInfo[index].berthpreference, oNcHANGE: onPrefrenceChange })
+//    console.log( currentPessengerInfo[index])
+    // console.log(index)
+    // const PassengerObj: SingleFormFilling = {
+    //     passengerName: passengerName,
+    //     pasengerAge: passengerAge,
+    //     gender: SelectedGender,
+    //     nationality: SelectedNation || NationalityOptions[0].value,
+    //     berthpreference: SelectedPrefrence || BerthPrefrencerOptions[0].value
+    // }
 
-    const [passengerName, SetPessengerName] = useState("")
-    const [passengerAge, SetPessengerAge] = useState<number | null>(null)
-
-    const PassengerObj: SingleFormFilling = {
-        passengerName: passengerName,
-        pasengerAge: passengerAge,
-        gender: SelectedGender,
-        nationality: SelectedNation || NationalityOptions[0].value,
-        berthpreference: SelectedPrefrence || BerthPrefrencerOptions[0].value
-    }
-
-    useEffect(() => {
-        setForm([...currentPessengerInfo, PassengerObj])
-    }, [PassengerObj])
+    //getting unexpectedValues hance used state 
+    const [Age , setAge] = useState(currentPessengerInfo[index].pasengerAge||null)
+    const [Name , setName] = useState(currentPessengerInfo[index].passengerName || "")
+    if (onAgeChange && Age) onAgeChange(Age) 
+    if (onNameChange) onNameChange((Name))
 
     return (
         <section className=' relative  flex flex-col md:flex-row items-center justify-between '>
@@ -52,16 +58,16 @@ function PassengerSingleInput({ PreviousSelectedName, PreviousSelectedAge, Previ
                 </section>
             </div>
             <input
-                value={PreviousSelectedName ? PreviousSelectedName : passengerName}
-                onChange={(e) => SetPessengerName(e.target.value)}
+                value={Name}
+                onChange={(e) => {setName(e.target.value)}}
                 type="text" maxLength={16} placeholder='Passenger Name' className=' w-full md:w-[20%] py-2 px-1 outline outline-1 focus:outline-none focus:ring focus:border-neutral-500 ' />
             <div className=' w-full md:w-[40%] flex flex-row items-center justify-evenly gap-2'>
                 <input
                     //@ts-ignore
-                    value={PreviousSelectedAge ? PreviousSelectedAge : passengerAge}
+                    value={Age}
                     min={5}
                     max={100}
-                    onChange={e => SetPessengerAge(Number(e.target.value))}
+                    onChange={(e) => {setAge(Number(e.target.value))}}
                     type="number" placeholder='Age' className='w-[49%] md:w-[55px] py-2 px-1 outline outline-1 focus:outline-none focus:ring focus:border-neutral-500 ' />
                 <div className=' w-[49%] relative'>
                     {GenderSlector}

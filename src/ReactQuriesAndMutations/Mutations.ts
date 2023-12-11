@@ -56,9 +56,9 @@ type getClassProps = {
     Trainclass: string
 }
 
-export const GetClassMutation = () => {
+export const GetClassMutation = (trainNumber: string) => {
     const dispatch = useDispatch()
-
+    const previousData = useSelector((state: RootState) => state.currrentClass.data)
     const mutation = useMutation({
         mutationKey: ["mutationGetClasses"],
         mutationFn: ({ SourceStationCode, DestinationStationCode, date, trainNumber, Trainclass }: getClassProps) => {
@@ -68,14 +68,20 @@ export const GetClassMutation = () => {
             dispatch(OpenLoadingPage())
         },
         onSuccess: (data) => {
-            console.log(data.data)
-            dispatch(SetCurrentClass(data.data))
+            
+            const Data: TrainClassDetails = data.data
+            const formatedData = Data.map((item, index) => ({
+                trainNumber: trainNumber,
+                trainStatus: item.trainStatus
+            }))
+            dispatch(SetCurrentClass([...previousData, formatedData[0]]))
             dispatch(CloseLaodingPage())
         },
         onError: (err) => {
-            console.log(err)
+            
             dispatch(CloseLaodingPage())
-            toast.error(err.message)
+            //@ts-ignore
+            toast.error(err.response.data.message)
         }
     })
 
@@ -89,14 +95,14 @@ type makePaymentMutationProps = {
 
 
 export const makePaymentMutation = () => {
-    const userForm = useSelector((state:RootState)=>state.UserFormTracker)
+    const userForm = useSelector((state: RootState) => state.UserFormTracker)
     console.log(userForm)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const mutation = useMutation({
-        mutationFn: ({  orderId }: makePaymentMutationProps) => {
-              //sience iam not planning to havr userDashbord i am hardcoding the value of userId
-            return axios.post(`http://localhost:2000/create-checkout-session`, { ...userForm, orderId, userId: `41952909-dc85-4896-9415-a956492955a8` , SubTotal : (Number(userForm.baseFare)*userForm.passengers.length).toString() })
+        mutationFn: ({ orderId }: makePaymentMutationProps) => {
+            //sience iam not planning to havr userDashbord i am hardcoding the value of userId
+            return axios.post(`http://localhost:2000/create-checkout-session`, { ...userForm, orderId, userId: `41952909-dc85-4896-9415-a956492955a8`, SubTotal: (Number(userForm.baseFare) * userForm.passengers.length).toString() })
         },
         onMutate: () => {
             dispatch(OpenLoadingPage())
@@ -130,9 +136,9 @@ export const MakeReservation = () => {
     const dispatch = useDispatch()
     const mutation = useMutation({
         mutationFn: ({ orderId, payment }: MakeReservationProp) => {
-          
+
             //adding pnr randomly..
-            return axios.post("http://localhost:2000/reservation", {  orderId, payment, Pnr: (Math.random().toString().slice(2, 12)), userId : "41952909-dc85-4896-9415-a956492955a8" })
+            return axios.post("http://localhost:2000/reservation", { orderId, payment, Pnr: (Math.random().toString().slice(2, 12)), userId: "41952909-dc85-4896-9415-a956492955a8" })
         },
         onSuccess: () => {
             dispatch(CloseLaodingPage())

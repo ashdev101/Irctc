@@ -26,13 +26,19 @@ export type CREDTrainListDataType = {
 }
 
 export type TrainClassDetails = {
-    trainStatus: ({
+    trainStatus: {
         trainTiming: string;
         currentStatus: string;
         confirmProbability: string;
-    } | {
-        trainTiming?: undefined;
-        currentStatus?: undefined;
-        confirmProbability?: undefined;
-    })[];
+    }[];
 }[]
+
+export type TrainClassDetailsToAddInStore = {
+    trainNumber: string
+    trainStatus: {
+        trainTiming: string;
+        currentStatus: string;
+        confirmProbability: string;
+    }[]
+}[]
+
