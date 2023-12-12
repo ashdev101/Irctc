@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import FormStepTracker from '../components/passengerForm/formStepTracker'
 import { singleTrain } from '../../data/SmpleScrappedData'
 import TrainInfoCard from '../components/passengerForm/TrainInfo'
@@ -15,7 +15,7 @@ import CaptchaInput from '../components/passengerForm/CaptchaInput'
 import Stripe from 'stripe'
 import { makePaymentMutation } from '../../ReactQuriesAndMutations/Mutations'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { RootState } from '../../Redux/Store'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -30,7 +30,17 @@ export type mutistepFrom = {
 }
 
 function PassengerFormFilling({ }: Props) {
-    
+    const location = useLocation()
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (location?.state?.from !== "/train-list") navigate("/", { replace: true })
+    }, [])
+
+    //dont know not working 
+    // if (location?.state?.from !== "/train-list") {
+    //     <Navigate to={"/"} replace />
+    // }
+
     const userForm = useSelector((state: RootState) => state.UserFormTracker)
     const [step, setStep] = useState(1)
     const { element, captch, setChangeCaptch } = Captcha()

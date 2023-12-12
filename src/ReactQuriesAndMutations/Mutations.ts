@@ -24,7 +24,7 @@ export const FetchTrainListMutation = () => {
     const mutation = useMutation({
         mutationKey: ["mutateAllTrain"],
         mutationFn: ({ from, to, date }: GetAllTrainProps) => {
-            return axios.post(`http://localhost:2000/getAllTrains`, {
+            return axios.post(`https://irctcserver.onrender.com/getAllTrains`, {
                 SourceStationCode: from, DestinationStationCode: to, date: date
             })
         },
@@ -62,7 +62,7 @@ export const GetClassMutation = (trainNumber: string) => {
     const mutation = useMutation({
         mutationKey: ["mutationGetClasses"],
         mutationFn: ({ SourceStationCode, DestinationStationCode, date, trainNumber, Trainclass }: getClassProps) => {
-            return axios.post(`http://localhost:2000/getClassDetails`, { SourceStationCode, DestinationStationCode, date, trainNumber, Trainclass })
+            return axios.post(`https://irctcserver.onrender.com/getClassDetails`, { SourceStationCode, DestinationStationCode, date, trainNumber, Trainclass })
         },
         onMutate: () => {
             dispatch(OpenLoadingPage())
@@ -102,7 +102,7 @@ export const makePaymentMutation = () => {
     const mutation = useMutation({
         mutationFn: ({ orderId }: makePaymentMutationProps) => {
             //sience iam not planning to havr userDashbord i am hardcoding the value of userId
-            return axios.post(`http://localhost:2000/create-checkout-session`, { ...userForm, orderId, userId: `41952909-dc85-4896-9415-a956492955a8`, SubTotal: (Number(userForm.baseFare) * userForm.passengers.length).toString() })
+            return axios.post(`https://irctcserver.onrender.com/create-checkout-session`, { ...userForm, orderId, userId: `41952909-dc85-4896-9415-a956492955a8`, SubTotal: (Number(userForm.baseFare) * userForm.passengers.length).toString() })
         },
         onMutate: () => {
             dispatch(OpenLoadingPage())
@@ -138,7 +138,7 @@ export const MakeReservation = () => {
         mutationFn: ({ orderId, payment }: MakeReservationProp) => {
 
             //adding pnr randomly..
-            return axios.post("http://localhost:2000/reservation", { orderId, payment, Pnr: (Math.random().toString().slice(2, 12)), userId: "41952909-dc85-4896-9415-a956492955a8" })
+            return axios.post("https://irctcserver.onrender.com/reservation", { orderId, payment, Pnr: (Math.random().toString().slice(2, 12)), userId: "41952909-dc85-4896-9415-a956492955a8" })
         },
         onSuccess: () => {
             dispatch(CloseLaodingPage())
@@ -158,7 +158,7 @@ export const VerifyTokenMutation = () => {
     const navigate = useNavigate()
     const mutation = useMutation({
         mutationFn: (token: string) => {
-            return axios.post("http://localhost:2000/verifytoken", { token })
+            return axios.post("https://irctcserver.onrender.com/verifytoken", { token })
         },
         onMutate: () => {
             dispatch(OpenLoadingPage())
