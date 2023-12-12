@@ -61,7 +61,7 @@ export const UserFormTracker = createSlice({
                     state[key as keyof UserFormTypes] = value
                 }
             }
-            console.log(state)
+            // console.log(state)
         }
     },
 })

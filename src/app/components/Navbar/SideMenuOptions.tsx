@@ -1,6 +1,5 @@
-import React from 'react'
+
 import DropDownSelector from '../DropDownSelector'
-import { BiSolidDownArrow } from 'react-icons/bi'
 import { useDispatch } from 'react-redux'
 import { OpenLoginFormModal } from '../../../Redux/modalSlice'
 

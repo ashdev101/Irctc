@@ -75,12 +75,12 @@ function TrainListTrainCard({
     const { from, to, date } = useSelector((state: RootState) => state.UserOptions)
     // console.log(activeTab.length)
     const userFormData = useSelector((state: RootState) => state.UserFormTracker)
-    console.log(trainNumber)
+    // console.log(trainNumber)
     const data = useSelector((state: RootState) => state.currrentClass.data)
     const isButtonDisabled = userFormData.trainNumber !== trainNumber
-    console.log(data)
+    // console.log(data)
     const filteredData = data?.filter((item) => (item.trainNumber).toString().trim() === trainNumber.toString().trim())
-    console.log(filteredData)
+    // console.log(filteredData)
     return (
         <div className=' w-full flex flex-col justify-between gap-3 p-2 border'>
             <section className=' w-full flex flex-col md:flex-row items-center justify-between '>

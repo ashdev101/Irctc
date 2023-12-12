@@ -42,7 +42,7 @@ function TrainListTrains({ }: Props) {
     // },[])
 
 
-    console.log(processedData)
+    // console.log(processedData)
     return (
         <>
             {

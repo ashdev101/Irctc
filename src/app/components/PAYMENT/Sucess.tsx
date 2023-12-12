@@ -20,8 +20,8 @@ function Success() {
         }
     }, [])
 
-    console.log(mutation.data?.data)
-    console.log(makeReservation.data?.data)
+    // console.log(mutation.data?.data)
+    // console.log(makeReservation.data?.data)
     return (
         <div>Success</div>
     )

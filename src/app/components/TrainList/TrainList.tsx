@@ -15,7 +15,7 @@ function TrainList({ }: Props) {
     const { data } = FetchTrainListMutation()
     // console.log(location.state?.from !== "/home")
     if (location.state?.from !== "/home") {
-        console.log("inhre");
+        // console.log("inhre");
         //dont know but navigate("/" ) is not able to navigate to "/" 
         return <Navigate to={"/"} />
     }

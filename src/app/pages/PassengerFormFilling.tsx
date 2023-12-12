@@ -52,8 +52,8 @@ function PassengerFormFilling({ }: Props) {
         nationality: 'Bharat',
         berthpreference: 'No Prefrence'
     }])
-    console.log(form)
-    console.log(form.length)
+    // console.log(form)
+    // console.log(form.length)
     const handleStepChange = useCallback((action: "next" | "prev") => {
         if (action === "next") {
             setStep(prev => prev + 1)
@@ -106,7 +106,7 @@ function PassengerFormFilling({ }: Props) {
                 handleStepChange("next");
 
             }
-            console.log(isEmptyInput())
+            // console.log(isEmptyInput())
             const isNextButtonDisabled = isEmptyInput() || captchaInput.length < 5
             content =
                 <>
@@ -177,8 +177,8 @@ function PassengerFormFilling({ }: Props) {
         else if (step === 3) {
 
             const handlePayment = async () => {
-                console.log(Number(userForm.SubTotal))
-                console.log(uuidv4())
+                // console.log(Number(userForm.SubTotal))
+                // console.log(uuidv4())
                 mutation.mutate({
                     orderId: uuidv4(),
                 })

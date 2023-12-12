@@ -19,7 +19,7 @@ export const UserSelectedOptions = createSlice({
     initialState,
     reducers: {
         SetUserOptions : (state , action: PayloadAction<UserOptionsTypes>) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.from  = action.payload.from 
             state.to  = action.payload.to 
             state.date  = action.payload.date 

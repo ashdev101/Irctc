@@ -44,7 +44,7 @@ function ClassCurrentListAsPerTab({
 
 }: Props) {
     const dispatch = useDispatch()
-    console.log(tabData)
+    // console.log(tabData)
     const currentValueSelected = useSelector((state: RootState) => state.UserFormTracker)
 
     const addDurationAndTime = (date: string, time: string) => {

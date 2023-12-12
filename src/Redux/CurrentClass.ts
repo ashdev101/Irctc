@@ -13,9 +13,9 @@ export const CurrentClass = createSlice({
     initialState,
     reducers: {
         SetCurrentClass: (state, action: PayloadAction<TrainClassDetailsToAddInStore>) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.data = action.payload
-            console.log(state)
+            // console.log(state)
         },
 
     }

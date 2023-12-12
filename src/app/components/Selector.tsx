@@ -17,7 +17,7 @@ type Props = {
 
 export default function Selector({ options, defaultValue, oNcHANGE }: Props) {
     const [selectedOption, setSelectedOption] = useState<string | undefined>();
-    console.log(defaultValue)
+    // console.log(defaultValue)
     // const AlreadySelectedValueIndex = options.find((item, index) => { item.value === defaultValue; return index})
     // console.log(AlreadySelectedValueIndex)
     const SelectorElement =

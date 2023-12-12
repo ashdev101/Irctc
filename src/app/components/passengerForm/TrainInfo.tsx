@@ -54,7 +54,7 @@ function TrainInfoCard({
             return filterData.name
         return undefined
     }, [])
-    console.log(status)
+    // console.log(status)
     return (
         <div className=' w-full flex flex-col justify-between gap-3 p-2 border'>
             {/* <section>

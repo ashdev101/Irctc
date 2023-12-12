@@ -21,10 +21,10 @@ export const CREDTrainList = createSlice({
         AddTrainListData: (state, action: PayloadAction<Array<CREDTrainListDataType>>) => {
             state.FilteredtrainData = action.payload
             state.OriginaltrainData = action.payload
-            console.log(state.OriginaltrainData)
+            // console.log(state.OriginaltrainData)
         },
         FilterTrainListsData: (state, action: PayloadAction<Array<string>>) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             state.FilteredtrainData = state.OriginaltrainData.filter((item) => {
                 if (action.payload.includes("1A") && !item.trainClassandPrice.find(item => item.class === "1A")) {
                     return
@@ -56,7 +56,7 @@ export const CREDTrainList = createSlice({
                     const minTime = new Date("2024-01-01T06:00:00")
                     const maxTime = new Date("2024-01-01T12:00:00")
 
-                    console.log(Traintime < minTime || Traintime > maxTime)
+                    // console.log(Traintime < minTime || Traintime > maxTime)
                     if (Traintime < minTime || Traintime > maxTime)
                         return
                 }
@@ -93,7 +93,7 @@ export const CREDTrainList = createSlice({
                     const minTime = new Date("2024-01-01T06:00:00")
                     const maxTime = new Date("2024-01-01T12:00:00")
 
-                    console.log(Traintime < minTime || Traintime > maxTime)
+                    // console.log(Traintime < minTime || Traintime > maxTime)
                     if (Traintime < minTime || Traintime > maxTime)
                         return
                 }

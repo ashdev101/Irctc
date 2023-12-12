@@ -30,7 +30,7 @@ type SingleFormFilling = {
 }
 
 function PassengerSingleInput({ index, PreviousSelectedName, PreviousSelectedAge, PreviousSelectedGender, currentPessengerInfo, onClose, PreviousselectedNation, PreviousberthPrefrence, onAgeChange, onGenderChange, onNameChange, onNationalityChange, onPrefrenceChange }: Props) {
-    console.log(currentPessengerInfo[index].gender)
+    // console.log(currentPessengerInfo[index].gender)
     const { SelectorElement: GenderSlector, selectedOption: SelectedGender } = Selector({ options: GenderOptions, defaultValue: [currentPessengerInfo[index].gender], oNcHANGE: onGenderChange })
     const { SelectorElement: NationalitySlector, selectedOption: SelectedNation } = Selector({ options: NationalityOptions, defaultValue: currentPessengerInfo[index].nationality, oNcHANGE: onNationalityChange })
     const { SelectorElement: BerthPrefrenceSlector, selectedOption: SelectedPrefrence } = Selector({ options: BerthPrefrencerOptions, defaultValue: currentPessengerInfo[index].berthpreference, oNcHANGE: onPrefrenceChange })

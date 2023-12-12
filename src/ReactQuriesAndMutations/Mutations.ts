@@ -32,7 +32,7 @@ export const FetchTrainListMutation = () => {
             dispatch(OpenLoadingPage())
         },
         onSuccess: (data) => {
-            console.log(data.data)
+            // console.log(data.data)
             dispatch(AddTrainListData(data.data as CREDTrainListDataType[]))
             dispatch(CloseLaodingPage())
             navigate("/train-list", { state: { from: "/home" } })
@@ -96,7 +96,7 @@ type makePaymentMutationProps = {
 
 export const MakePaymentMutation = () => {
     const userForm = useSelector((state: RootState) => state.UserFormTracker)
-    console.log(userForm)
+    // console.log(userForm)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const mutation = useMutation({
@@ -108,13 +108,13 @@ export const MakePaymentMutation = () => {
             dispatch(OpenLoadingPage())
         },
         onSuccess: (data) => {
-            console.log(data)
+            // console.log(data)
             window.location.href = data.data
             dispatch(CloseLaodingPage())
         },
         onError: (error) => {
             dispatch(CloseLaodingPage())
-            console.log(error.message)
+            // console.log(error.message)
             toast.error("something went wron try after sometime")
         }
     });
@@ -169,7 +169,7 @@ export const VerifyTokenMutation = () => {
             reservationMutation.mutate({ orderId: data.data.orderId, payment: "succesfull" })
         },
         onError: (err) => {
-            console.log(err)
+            // console.log(err)
             //means someone is playing the the system send them to the homePage
             navigate("/")
             dispatch(CloseLaodingPage())

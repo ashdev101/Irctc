@@ -40,7 +40,7 @@ function LoginModal({ }: Props) {
             setChangeCaptch(prev => !prev)
             return
         }
-        console.log(LoginForm)
+        // console.log(LoginForm)
         setLoginForm({username : "" , password : "" , captchInput : ""})
         
     }, [LoginForm])

@@ -17,17 +17,17 @@ function Step1({ form, setForm }: Props) {
     const userFormInput = useSelector((state: RootState) => state.UserFormTracker)
     const [numberOfSinglePASSENGERfORM, setnumberOfSinglePASSENGERfORM] = useState(1)
     // const [form, setForm] = useState<Array<mutistepFrom>>([])
-    console.log(form.length)
+    // console.log(form.length)
 
     const handleClickAction = (action: "inc" | "dec", index?: number) => {
         if (action === "inc") {
-            console.log("called")
+            // console.log("called")
             if (form.length === 6) { toast.error("maxium 6 passengers are allowed"); return }
             setForm([...form, { passengerName: '', pasengerAge: null, gender: undefined, nationality: 'Bharat', berthpreference: 'No Prefrence' }])
 
         } else if (action === "dec" && form.length > 1 && index) {
-            console.log(index)
-            console.log("called")
+            // console.log(index)
+            // console.log("called")
             setForm(prev => {
                 const newArray = [...prev]
                 newArray.splice(index, 1)
@@ -38,8 +38,8 @@ function Step1({ form, setForm }: Props) {
     }
 
     const PaseengerMultipleForm = useMemo(() => {
-        console.log(form.length)
-        console.log(form.length)
+        // console.log(form.length)
+        // console.log(form.length)
         const forms = form.map((item, index) =>
         (
             <>
@@ -105,7 +105,7 @@ function Step1({ form, setForm }: Props) {
             </>
         )
         )
-        console.log(forms)
+        // console.log(forms)
         return (
             <>
                 {forms}
