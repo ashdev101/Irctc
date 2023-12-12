@@ -94,7 +94,7 @@ type makePaymentMutationProps = {
 }
 
 
-export const makePaymentMutation = () => {
+export const MakePaymentMutation = () => {
     const userForm = useSelector((state: RootState) => state.UserFormTracker)
     console.log(userForm)
     const dispatch = useDispatch()

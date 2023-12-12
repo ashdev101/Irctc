@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 import Captcha from '../components/Captcha'
 import CaptchaInput from '../components/passengerForm/CaptchaInput'
 import Stripe from 'stripe'
-import { makePaymentMutation } from '../../ReactQuriesAndMutations/Mutations'
+import { MakePaymentMutation } from '../../ReactQuriesAndMutations/Mutations'
 import axios from 'axios'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { RootState } from '../../Redux/Store'
@@ -63,7 +63,7 @@ function PassengerFormFilling({ }: Props) {
     }, [step])
 
     const dispatch = useDispatch()
-    const { mutation } = makePaymentMutation()
+    const { mutation } = MakePaymentMutation()
 
 
     const content = () => {
