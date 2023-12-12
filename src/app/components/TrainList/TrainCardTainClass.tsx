@@ -6,19 +6,19 @@ import { useDispatch } from 'react-redux'
 import { SetUserForm } from '../../../Redux/UserFormTraker'
 
 type Props = {
-    
+
     classDesc: string
     activeTab: string
     SetterFunction: React.Dispatch<SetStateAction<string>>
     SourceStationCode: string
     DestinationStationCode: string
     date: string
-    trainNumber: string 
-    Price : string
+    trainNumber: string
+    Price: string
 }
 
-function TrainCardTainClass({   Price , classDesc, activeTab, SetterFunction, SourceStationCode, DestinationStationCode, date, trainNumber }: Props) {
- 
+function TrainCardTainClass({ Price, classDesc, activeTab, SetterFunction, SourceStationCode, DestinationStationCode, date, trainNumber }: Props) {
+
     const { mutation } = GetClassMutation(trainNumber)
     const dispatch = useDispatch()
 
@@ -29,17 +29,19 @@ function TrainCardTainClass({   Price , classDesc, activeTab, SetterFunction, So
             DestinationStationCode,
             date,
             trainNumber,
-            Trainclass : classDesc.split("(")[1].split(")")[0].trim()
+            Trainclass: classDesc.split("(")[1].split(")")[0].trim()
         })
-        dispatch(SetUserForm({baseFare : Price , BerthClass : classDesc}))
+        dispatch(SetUserForm({ baseFare: Price, BerthClass: classDesc }))
     }
     return (
 
 
         <div
             onClick={handleClick}
-            className={`  flex flex-col gap-1 py-1 px-2 pr-16 ${activeTab === classDesc ? " border-b-2 border-rose-300" : ""} ${activeTab.length ? "min-w-max" : "border-b rounded-lg hover:border-black min-w-max"} cursor-pointer`}>
-            <span>{classDesc}</span>
+            className={`  flex flex-col gap-1 py-1 px-2 pr-8 sm:pr-12 md:pr-14 lg:pr-16 ${activeTab === classDesc ? " border-b-2 border-rose-300" : ""} ${activeTab.length ? "min-w-max" : "border-b rounded-lg hover:border-black min-w-max"} cursor-pointer`}>
+            <span className='hidden lg:block'>{classDesc}</span>
+            <span className=' lg:hidden'>{classDesc.split("(")[1].split(")")[0].trim()}</span>
+
             {
                 !activeTab.length &&
                 <div className=' text-center flex flex-row items-center gap-1'>

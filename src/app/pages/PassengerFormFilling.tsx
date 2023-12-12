@@ -90,17 +90,17 @@ function PassengerFormFilling({ }: Props) {
             }
 
             const handlenNextClick = () => {
-                // setChangeCaptch(prev => !prev)
-                // setcaptchaInput("")
-                // if (isNextButtonDisabled) {
-                //     toast.error("pls fill the required feilds ")
-                //     return
-                // }
-                // if (captch !== captchaInput) {
-                //     toast.error("invalid captcha")
+                setChangeCaptch(prev => !prev)
+                setcaptchaInput("")
+                if (isNextButtonDisabled) {
+                    toast.error("pls fill the required feilds ")
+                    return
+                }
+                if (captch !== captchaInput) {
+                    toast.error("invalid captcha")
 
-                //     return
-                // }
+                    return
+                }
                 //@ts-ignore cause we have checked for the condition 
                 dispatch(SetUserForm({ passenger: form }))
                 handleStepChange("next");
@@ -138,13 +138,13 @@ function PassengerFormFilling({ }: Props) {
         }
         else if (step === 2) {
             const handleNext = () => {
-                // setcaptchaInput("")
-                // setChangeCaptch(prev => !prev)
-                // if (captchaInput !== captch) {
-                //     toast.error("invalid captcha")
+                setcaptchaInput("")
+                setChangeCaptch(prev => !prev)
+                if (captchaInput !== captch) {
+                    toast.error("invalid captcha")
 
-                //     return
-                // }
+                    return
+                }
                 dispatch(SetUserForm({ SubTotal: (Number(userForm.baseFare) * userForm.passengers.length).toString() }))
                 handleStepChange("next")
             }

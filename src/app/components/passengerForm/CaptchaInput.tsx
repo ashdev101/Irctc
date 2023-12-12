@@ -12,12 +12,12 @@ function CaptchaInput({ element, setChangeCaptch, setcaptchaInput , captchaInput
     return (
         <>
             <span className=' text-rose-300'>!Cant See Captcha try Refrehsing it </span>
-            <section className=' w-[60%] flex flex-row items-center justify-between border p-2'>
+            <section className=' w-full  sm:w-[90%] md:w-[60%] flex flex-col sm:flex-row items-center justify-between border p-2'>
                 {element}
                 <div className=' p-3  cursor-pointer flex items-center justify-center rounded-full hover:bg-slate-300' onClick={() => setChangeCaptch(prev => !prev)}>
                     <IoIosRefresh size={25} />
                 </div>
-                <section className='  px-3 md:px-0 w-full md:w-[60%]'>
+                <section className=' mt-3 sm:mt-0 px-3 md:px-0 w-full md:w-[60%]'>
                     <input value={captchaInput} type="text" maxLength={6} placeholder='Captcha' className=' w-full p-3 borderd ' onChange={e => setcaptchaInput(e.target.value)} />
                 </section>
             </section>

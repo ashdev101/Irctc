@@ -106,8 +106,8 @@ function TrainListTrainCard({
                 </div>
 
             </section>
-            <section className=' w-full flex-col justify-center gap-4 overflow-x-auto' >
-                <div className=" w-full flex flex-row items-start  gap-3">
+            <section className=' relative  w-full flex-col justify-center gap-4 overflow-x-auto' >
+                <div className="sticky top-0 left-0 w-full flex flex-row items-start  gap-3">
                     {
                         trainClassandPrice.map((item, index) => {
                             const test = filterClass(item.class)
