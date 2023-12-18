@@ -47,8 +47,11 @@ function Form({ }: Props) {
     const isButtonDisabled = !fromInput.includes("(") || !toInput.includes(")") || formatDate?.length !== 8
     const { mutation } = FetchTrainListMutation()
     const handleSubmit = () => {
-
-        if (isButtonDisabled || !Form.date) return
+        if(!Form.date){
+            toast.error("kindly select date")
+            return 
+        }
+        if (isButtonDisabled ) return
         if (Form.from === Form.to) {
             toast.error("Source and Destination cannot be same")
             return
