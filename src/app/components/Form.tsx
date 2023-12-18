@@ -172,7 +172,7 @@ function Form({ }: Props) {
 
                 <section className=' flex flex-col justify-center gap-6 sm:flex-row items-center sm:justify-between w-full mt-2 '>
                     <button
-{/*                         disabled={isButtonDisabled} */}
+                     //disabled={isButtonDisabled}
                         className=' w-full sm:max-w-max px-6 py-2 rounded-md font-semibold bg-[rgb(251,121,43)] border-none outline-none text-[15px] text-white'
                         onClick={handleSubmit}
                     >
